@@ -3,4 +3,4 @@ echo "Running advection2D"
 echo ""
 ./source/advection2D
 
-exit
+exit 0
