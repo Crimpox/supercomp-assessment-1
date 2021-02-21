@@ -202,11 +202,13 @@ int main(){
 
   clock_t end = clock();
 
+  double execution_time;
   #ifdef _OPENMP
     end = omp_get_wtime();
+    execution_time = end - begin;
+  #else
+    execution_time = (double)(end - begin) / CLOCKS_PER_SEC;
   #endif
-  
-  double execution_time = (double)(end - begin) / CLOCKS_PER_SEC;
 
   printf("Time elapsed: %f seconds\n", execution_time);
 
