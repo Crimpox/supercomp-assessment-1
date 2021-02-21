@@ -66,7 +66,7 @@ int main(){
   const float fricvel = 0.2;  // u*: Friction velcotiy (m/s)
   const float roughlen = 1.0; // z0: Roughness length (m)
   const float k = 0.41;       // k: Von Karman’s constant
-  float velx = 1.0;           // Horizontal velocity
+  float velx = 0.0;           // Horizontal velocity
 
   /* Arrays to store variables. These have NX+2 elements
      to allow boundary values to be stored at both ends */
@@ -84,7 +84,7 @@ int main(){
   
   /* Calculate time step using the CFL condition */
   /* The fabs function gives the absolute value in case the velocity is -ve */
-  //float dt = CFL / ( (fabs(velx) / dx) + (fabs(vely) / dy) );
+  float dt = CFL / ( (fabs(velx) / dx) + (fabs(vely) / dy) );
 
   
   
@@ -92,11 +92,11 @@ int main(){
   printf("Grid spacing dx     = %g\n", dx);
   printf("Grid spacing dy     = %g\n", dy);
   printf("CFL number          = %g\n", CFL);
-  //printf("Time step           = %g\n", dt);
+  printf("Time step           = %g\n", dt);
   printf("No. of time steps   = %d\n", nsteps);
-  //printf("End time            = %g\n", dt*(float) nsteps);
-  //printf("Distance advected x = %g\n", velx*dt*(float) nsteps);
-  //printf("Distance advected y = %g\n", vely*dt*(float) nsteps);
+  printf("End time            = %g\n", dt*(float) nsteps);
+  printf("Distance advected x = %g\n", velx*dt*(float) nsteps);
+  printf("Distance advected y = %g\n", vely*dt*(float) nsteps);
 
   clock_t begin = clock();
 
@@ -178,7 +178,7 @@ int main(){
       for (int j=1; j<NY+1; j++){
 
         if (y[j] > roughlen){
-          velx = windShear(y[j]);
+          velx = (fricvel/k) * log(y[j]/roughlen);
         } else{
           velx = 0.0;
         }
@@ -195,7 +195,7 @@ int main(){
     #pragma omp parallel for default(none) shared(u, dudt, dt) collapse(2)
     for	(int i=1; i<NX+1; i++){
       for (int j=1; j<NY+1; j++){
-	      u[i][j] = u[i][j] + dudt[i][j] * dt(y[j]);
+	      u[i][j] = u[i][j] + dudt[i][j] * dt;
       }
     }
     
@@ -226,14 +226,6 @@ int main(){
 
 
   return 0;
-}
-
-float windShear(float z){
-  return (fricvel/k) * log(z/roughlen);
-}
-
-float dt(float y){
-  CFL / ( (fabs(windShear(y)) / dx) + (fabs(vely) / dy) )
 }
 
 /* End of file ******************************************************/
