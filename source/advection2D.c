@@ -177,17 +177,16 @@ int main(){
     for (int i=1; i<NX+1; i++){
       for (int j=1; j<NY+1; j++){
 
-        if (j <= roughlen){
-          velx = 0.0;
-        } else{
+        if (j > roughlen){
           velx = (fricvel/k) * log(j/roughlen);
-          printf("velx: %f\n", velx);
+          printf("j:%d velx: %f\n", j, velx);
+        } else{
+          velx = 0.0;
         }
 
 	      dudt[i][j] = -velx * (u[i][j] - u[i-1][j]) / dx
 	            - vely * (u[i][j] - u[i][j-1]) / dy;
         
-        //printf("i: %d j: %d dudt[i][j]: %g\n", i, j ,dudt[i][j]);
       }
     }
     
