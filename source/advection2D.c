@@ -66,7 +66,7 @@ int main(){
   const float fricvel = 0.2;  // u*: Friction velcotiy (m/s)
   const float roughlen = 1.0; // z0: Roughness length (m)
   const float k = 0.41;       // k: Von Karman’s constant
-  float velx = 0.1;           // Horizontal velocity
+  float velx = 2.0;           // Horizontal velocity
 
   /* Arrays to store variables. These have NX+2 elements
      to allow boundary values to be stored at both ends */
