@@ -179,7 +179,7 @@ int main(){
 
         if (j > roughlen){
           velx = (fricvel/k) * log(y[j]/roughlen);
-          //printf("j:%d velx: %f\n", j, velx);
+          printf("j:%d velx: %f\n", j, velx);
         } else{
           velx = 0.0;
         }
