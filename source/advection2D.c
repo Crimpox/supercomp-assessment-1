@@ -113,7 +113,7 @@ int main(){
 
   /*** Set up Gaussian initial conditions ***/
   /* LOOP 3 */
-  #pragma omp parallel for default(none) shared(u) private(x2, y2) collapse(2)
+  #pragma omp parallel for default(none) shared(x, y, u) private(x2, y2) collapse(2)
   for (int i=0; i<NX+2; i++){
     for (int j=0; j<NY+2; j++){
       x2      = (x[i]-x0) * (x[i]-x0);
