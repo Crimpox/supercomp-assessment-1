@@ -59,9 +59,16 @@ int main(){
   const int nsteps=800; // Number of time steps
 
   /* Velocity */
-  const float velx=1.0; // Velocity in x direction
+  //const float velx=1.0; // Velocity in x direction
   const float vely=0.0; // Velocity in y direction
-  
+
+  /* Vertical shear*/
+
+  const float fricvel = 0.2;  // u*: Friction velcotiy (m/s)
+  const float roughlen = 1.0; // z0: Roughness length (m)
+  const float k = 0.41;       // k: Von Karman’s constant
+  float velx = 1.0;           // Horizontal velocity
+
   /* Arrays to store variables. These have NX+2 elements
      to allow boundary values to be stored at both ends */
   float x[NX+2];          // x-axis values
@@ -167,9 +174,11 @@ int main(){
     /*** Calculate rate of change of u using leftward difference ***/
     /* Loop over points in the domain but not boundary values */
     /* LOOP 8 */
-    #pragma omp parallel for default(none) shared(dudt, u, dx, dy) collapse(2)
+    #pragma omp parallel for default(none) shared(dudt, u, dx, dy) private (velx) collapse(2)
     for (int i=1; i<NX+1; i++){
       for (int j=1; j<NY+1; j++){
+        velx = (fricvel/k) * log(j/roughlen);
+
 	      dudt[i][j] = -velx * (u[i][j] - u[i-1][j]) / dx
 	            - vely * (u[i][j] - u[i][j-1]) / dy;
         
