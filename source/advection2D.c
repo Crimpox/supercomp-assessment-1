@@ -21,6 +21,10 @@ Notes: The time step is calculated using the CFL condition
 #include <stdio.h>
 #include <math.h>
 
+#ifdef _OPENMP
+#include <omp.h>
+#endif
+
 /*********************************************************************
                       Main function
 **********************************************************************/
@@ -74,6 +78,8 @@ int main(){
   /* Calculate time step using the CFL condition */
   /* The fabs function gives the absolute value in case the velocity is -ve */
   float dt = CFL / ( (fabs(velx) / dx) + (fabs(vely) / dy) );
+
+  
   
   /*** Report information about the calculation ***/
   printf("Grid spacing dx     = %g\n", dx);
@@ -87,6 +93,7 @@ int main(){
 
   /*** Place x points in the middle of the cell ***/
   /* LOOP 1 */
+  #pragma omp parallel for default (none) shared(NX, x, dx) private(i) 
   for (int i=0; i<NX+2; i++){
     x[i] = ( (float) i - 0.5) * dx;
   }
@@ -141,7 +148,7 @@ int main(){
     /* LOOP 8 */
     for (int i=1; i<NX+1; i++){
       for (int j=1; j<NY+1; j++){
-	dudt[i][j] = -velx * (u[i][j] - u[i-1][j]) / dx
+	      dudt[i][j] = -velx * (u[i][j] - u[i-1][j]) / dx
 	            - vely * (u[i][j] - u[i][j-1]) / dy;
       }
     }
