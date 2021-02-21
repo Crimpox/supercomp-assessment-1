@@ -173,7 +173,7 @@ int main(){
     /*** Calculate rate of change of u using leftward difference ***/
     /* Loop over points in the domain but not boundary values */
     /* LOOP 8 */
-    #pragma omp parallel for default(none) shared(dudt, u, dx, dy) private (velx) collapse(2)
+    #pragma omp parallel for default(none) shared(dudt, u, dx, dy, y) private (velx) collapse(2)
     for (int i=1; i<NX+1; i++){
       for (int j=1; j<NY+1; j++){
 
