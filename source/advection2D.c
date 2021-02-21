@@ -180,7 +180,8 @@ int main(){
         if (j <= roughlen){
           velx = 0.0;
         } else{
-          velx = (fricvel/k) * log((float)j/roughlen);
+          velx = (fricvel/k) * log(j/roughlen);
+          printf("velx: %f\n", velx);
         }
 
 	      dudt[i][j] = -velx * (u[i][j] - u[i-1][j]) / dx
