@@ -197,8 +197,8 @@ int main(){
   }
   fclose(finalfile);
 
-  clcok_t end = clock();
-  double execution_time = (double)(end - begin) / CLOCKS_PER_SEC
+  clock_t end = clock();
+  double execution_time = (double)(end - begin) / CLOCKS_PER_SEC;
 
   printf("Time elapsed: %f seconds\n", execution_time);
 
