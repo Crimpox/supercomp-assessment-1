@@ -212,6 +212,19 @@ int main(){
   }
   fclose(finalfile);
 
+  FILE *avfile;
+  avfile = fopen("average.dat", "w");
+
+  for (int i = 1; i<NX+1; i++){
+    float sum = 0.0;
+    for (int j = 1; j < NY+1; j++){
+      sum += u[i][j];
+    }
+
+    fprintf(avfile, "%g %g\n", x[i], sum/(float)NY);
+  }
+  fclose(avfile);
+
   clock_t end = clock();
 
   double execution_time;
