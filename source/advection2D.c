@@ -63,7 +63,6 @@ int main(){
   const float vely=0.0; // Velocity in y direction
 
   /* Vertical shear*/
-
   const float fricvel = 0.2;  // u*: Friction velcotiy (m/s)
   const float roughlen = 1.0; // z0: Roughness length (m)
   const float k = 0.41;       // k: Von Karman’s constant
@@ -177,7 +176,13 @@ int main(){
     #pragma omp parallel for default(none) shared(dudt, u, dx, dy) private (velx) collapse(2)
     for (int i=1; i<NX+1; i++){
       for (int j=1; j<NY+1; j++){
-        velx = (fricvel/k) * log(j/roughlen);
+
+        if (j <= roughlen){
+          velx = 0.0;
+        } else{
+          velx = (fricvel/k) * log(j/roughlen);
+        }
+        
 
 	      dudt[i][j] = -velx * (u[i][j] - u[i-1][j]) / dx
 	            - vely * (u[i][j] - u[i][j-1]) / dy;
