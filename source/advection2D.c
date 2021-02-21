@@ -122,8 +122,6 @@ int main(){
     }
   }
 
-  printf("Gaussian conditions set\n");
-
   /*** Write array of initial u values out to file ***/
   FILE *initialfile;
   initialfile = fopen("initial.dat", "w");
@@ -134,8 +132,6 @@ int main(){
     }
   }
   fclose(initialfile);
-  
-  printf("Initial values written to file initial.dat\n");
 
   /*** Update solution by looping over time steps ***/
   /* LOOP 5 */
@@ -165,7 +161,7 @@ int main(){
     /*** Calculate rate of change of u using leftward difference ***/
     /* Loop over points in the domain but not boundary values */
     /* LOOP 8 */
-    //#pragma omp parallel for default(none) shared(dudt, u) private(dx, dy) collapse(2)
+    #pragma omp parallel for default(none) shared(dudt, u) private(dx, dy) collapse(2)
     for (int i=1; i<NX+1; i++){
       for (int j=1; j<NY+1; j++){
 	      dudt[i][j] = -velx * (u[i][j] - u[i-1][j]) / dx
