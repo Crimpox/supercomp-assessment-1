@@ -166,6 +166,8 @@ int main(){
       for (int j=1; j<NY+1; j++){
 	      dudt[i][j] = -velx * (u[i][j] - u[i-1][j]) / dx
 	            - vely * (u[i][j] - u[i][j-1]) / dy;
+        
+        printf("i: %d j: %d dudt[i][j]: %g", i, j ,dudt[i][j]);
       }
     }
     
