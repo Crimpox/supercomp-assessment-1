@@ -136,11 +136,16 @@ int main(){
   }
   fclose(initialfile);
   
-  printf("Initial values written to file initila.dat\n");
+  printf("Initial values written to file initial.dat\n");
 
   /*** Update solution by looping over time steps ***/
   /* LOOP 5 */
-  for (int m=0; m<nsteps; m++){
+  /**
+    Should not be parallelised as the steps must occur in order.
+      This is because arrays u and dudt require their values 
+      from the previous step to already be set within each array 
+  **/
+  for (int m=0; m<nsteps; m++){     
     
     /*** Apply boundary conditions at u[0][:] and u[NX+1][:] ***/
     /* LOOP 6 */
@@ -181,6 +186,7 @@ int main(){
   FILE *finalfile;
   finalfile = fopen("final.dat", "w");
   /* LOOP 10 */
+  #pragma omp parallel for default(shared) collapse(2) 
   for (int i=0; i<NX+2; i++){
     for (int j=0; j<NY+2; j++){
       fprintf(finalfile, "%g %g %g\n", x[i], y[j], u[i][j]);
