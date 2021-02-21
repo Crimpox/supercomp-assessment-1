@@ -14,9 +14,8 @@ set output "average.png"
 
 # Set ranges and labels for axes
 set xrange [0:30.0]
-set yrange [0:1.0]
-set xlabel "x (m)"
-set ylabel "y (m)"
+set xlabel "x"
+set ylabel "u"
 
 # Enforce an aspect ratio of 1
 set size square
@@ -25,6 +24,6 @@ set size square
 set title 'Vertical average distribution'
 
 # Plot the data 
-plot "average.dat" with image 
+plot "average.dat" with lines
 
 # End of file
