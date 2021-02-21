@@ -14,15 +14,12 @@ set output "average.png"
 
 # Set ranges and labels for axes
 set xrange [0:30.0]
-set yrange [0:30.0]
+set yrange [0:1.0]
 set xlabel "x (m)"
 set ylabel "y (m)"
 
 # Enforce an aspect ratio of 1
 set size square
-
-# Set the range of the colour scale
-set cbrange [0:1]
 
 # Set title
 set title 'Vertical average distribution'
