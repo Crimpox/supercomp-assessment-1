@@ -20,6 +20,7 @@ Notes: The time step is calculated using the CFL condition
 
 #include <stdio.h>
 #include <math.h>
+#include <time.h>
 
 #ifdef _OPENMP
 #include <omp.h>
@@ -96,6 +97,8 @@ int main(){
   #else
     printf("Not using OpenMP.\n");
   #endif
+
+  clock_t begin = clock();
 
   /*** Place x points in the middle of the cell ***/
   /* LOOP 1 */
@@ -193,6 +196,12 @@ int main(){
     }
   }
   fclose(finalfile);
+
+  clcok_t end = clock();
+  double execution_time = (double)(end - begin) / CLOCKS_PER_SEC
+
+  printf("Time elapsed: %f seconds\n", execution_time);
+
 
   return 0;
 }
