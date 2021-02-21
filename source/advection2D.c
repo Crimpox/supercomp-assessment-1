@@ -82,6 +82,8 @@ int main(){
   float dx = (xmax-xmin) / ( (float) NX);
   float dy = (ymax-ymin) / ( (float) NY);
   
+  velx = 1.0;
+
   /* Calculate time step using the CFL condition */
   /* The fabs function gives the absolute value in case the velocity is -ve */
   float dt = CFL / ( (fabs(velx) / dx) + (fabs(vely) / dy) );
@@ -183,6 +185,8 @@ int main(){
           velx = 0.0;
         }
 
+        velx = 1.0;
+
 	      dudt[i][j] = -velx * (u[i][j] - u[i-1][j]) / dx
 	            - vely * (u[i][j] - u[i][j-1]) / dy;
         
@@ -212,6 +216,7 @@ int main(){
   }
   fclose(finalfile);
 
+  /*** Write array of average values of u for each value of x ***/
   FILE *avfile;
   avfile = fopen("average.dat", "w");
 
