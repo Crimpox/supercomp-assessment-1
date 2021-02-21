@@ -92,9 +92,9 @@ int main(){
   printf("Distance advected y = %g\n", vely*dt*(float) nsteps);
 
   #ifdef _OPENMP
-    printf("Using OpenMP with %d threads.", omp_get_num_threads());
+    printf("Using OpenMP.\n");
   #else
-    printf("Not using OpenMP.");
+    printf("Not using OpenMP.\n");
   #endif
 
   /*** Place x points in the middle of the cell ***/
@@ -122,13 +122,13 @@ int main(){
     }
   }
 
-  printf("Gaussian conditions set");
+  printf("Gaussian conditions set\n");
 
   /*** Write array of initial u values out to file ***/
   FILE *initialfile;
   initialfile = fopen("initial.dat", "w");
   /* LOOP 4 */
-  //#pragma omp parallel for default(shared) collapse(2)
+  #pragma omp parallel for default(shared) collapse(2)
   for (int i=0; i<NX+2; i++){
     for (int j=0; j<NY+2; j++){
       fprintf(initialfile, "%g %g %g\n", x[i], y[j], u[i][j]);
@@ -136,7 +136,7 @@ int main(){
   }
   fclose(initialfile);
   
-  printf("Initial values written to file initila.dat");
+  printf("Initial values written to file initila.dat\n");
 
   /*** Update solution by looping over time steps ***/
   /* LOOP 5 */
