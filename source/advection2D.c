@@ -100,6 +100,7 @@ int main(){
 
   /*** Place y points in the middle of the cell ***/
   /* LOOP 2 */
+  #pragma omp parallel for default (none) shared(y, dy)
   for (int j=0; j<NY+2; j++){
     y[j] = ( (float) j - 0.5) * dy;
   }
