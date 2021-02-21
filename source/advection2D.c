@@ -91,6 +91,12 @@ int main(){
   printf("Distance advected x = %g\n", velx*dt*(float) nsteps);
   printf("Distance advected y = %g\n", vely*dt*(float) nsteps);
 
+  #ifdef _OPENMP
+    printf("Using OpenMP with %d threads.", omp_get_num_threads());
+  #else
+    printf("Not using OpenMP.");
+  #endif
+
   /*** Place x points in the middle of the cell ***/
   /* LOOP 1 */
   #pragma omp parallel for default (none) shared(x, dx)
@@ -113,6 +119,7 @@ int main(){
       x2      = (x[i]-x0) * (x[i]-x0);
       y2      = (y[j]-y0) * (y[j]-y0);
       u[i][j] = exp( -1.0 * ( (x2/(2.0*sigmax2)) + (y2/(2.0*sigmay2)) ) );
+      printf("Set Gaussian condition on for (%d, %d) on thread %d\n", i, j, omp_get_thread_num());
     }
   }
 
