@@ -23,7 +23,9 @@ set size square
 # Set title
 set title 'Vertical average distribution'
 
-set style line 1 lt 2 lw 2 lc rgb "blue"
+set style line 1 lc rgb '#7b42f5' lt 1 lw 2
+
+set key noautotitle
 
 # Plot the data 
 plot "average.dat" with lines
