@@ -92,13 +92,16 @@ int main(){
   printf("Distance advected x = %g\n", velx*dt*(float) nsteps);
   printf("Distance advected y = %g\n", vely*dt*(float) nsteps);
 
+  clock_t begin = clock();
+
   #ifdef _OPENMP
     printf("Using OpenMP.\n");
+    begin = omp_get_wtime();
   #else
     printf("Not using OpenMP.\n");
   #endif
 
-  clock_t begin = clock();
+  
 
   /*** Place x points in the middle of the cell ***/
   /* LOOP 1 */
@@ -198,6 +201,11 @@ int main(){
   fclose(finalfile);
 
   clock_t end = clock();
+
+  #ifdef _OPENMP
+    end = omp_get_wtime();
+  #endif
+  
   double execution_time = (double)(end - begin) / CLOCKS_PER_SEC;
 
   printf("Time elapsed: %f seconds\n", execution_time);
