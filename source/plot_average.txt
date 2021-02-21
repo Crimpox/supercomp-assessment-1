@@ -28,6 +28,6 @@ set style line 1 lc rgb '#7b42f5' lt 1 lw 2
 set key noautotitle
 
 # Plot the data 
-plot "average.dat" with lines
+plot "average.dat"
 
 # End of file
