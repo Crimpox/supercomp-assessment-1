@@ -174,7 +174,7 @@ int main(){
     /*** Update u from t to t+dt ***/
     /* Loop over points in the domain but not boundary values */
     /* LOOP 9 */
-    //#pragma omp parallel for default(none) shared(u, dudt) private(dt) collapse(2)
+    #pragma omp parallel for default(none) shared(u, dudt, dt) collapse(2)
     for	(int i=1; i<NX+1; i++){
       for (int j=1; j<NY+1; j++){
 	      u[i][j] = u[i][j] + dudt[i][j] * dt;
