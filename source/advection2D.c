@@ -82,7 +82,6 @@ int main(){
   float dx = (xmax-xmin) / ( (float) NX);
   float dy = (ymax-ymin) / ( (float) NY);
   
-  velx = 1.0;
 
   /* Calculate time step using the CFL condition */
   /* The fabs function gives the absolute value in case the velocity is -ve */
@@ -184,8 +183,6 @@ int main(){
         } else{
           velx = 0.0;
         }
-
-        velx = 1.0;
 
 	      dudt[i][j] = -velx * (u[i][j] - u[i-1][j]) / dx
 	            - vely * (u[i][j] - u[i][j-1]) / dy;
