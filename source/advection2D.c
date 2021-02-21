@@ -161,13 +161,13 @@ int main(){
     /*** Calculate rate of change of u using leftward difference ***/
     /* Loop over points in the domain but not boundary values */
     /* LOOP 8 */
-    #pragma omp parallel for default(none) shared(dudt, u) private(dx, dy) collapse(2)
+    #pragma omp parallel for default(none) shared(dudt, u, dx, dy) collapse(2)
     for (int i=1; i<NX+1; i++){
       for (int j=1; j<NY+1; j++){
 	      dudt[i][j] = -velx * (u[i][j] - u[i-1][j]) / dx
 	            - vely * (u[i][j] - u[i][j-1]) / dy;
         
-        printf("i: %d j: %d dudt[i][j]: %g", i, j ,dudt[i][j]);
+        //printf("i: %d j: %d dudt[i][j]: %g\n", i, j ,dudt[i][j]);
       }
     }
     
