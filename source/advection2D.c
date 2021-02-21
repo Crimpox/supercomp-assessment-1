@@ -119,9 +119,10 @@ int main(){
       x2      = (x[i]-x0) * (x[i]-x0);
       y2      = (y[j]-y0) * (y[j]-y0);
       u[i][j] = exp( -1.0 * ( (x2/(2.0*sigmax2)) + (y2/(2.0*sigmay2)) ) );
-      printf("Set Gaussian condition on for (%d, %d) on thread %d\n", i, j, omp_get_thread_num());
     }
   }
+
+  printf("Gaussian conditions set");
 
   /*** Write array of initial u values out to file ***/
   FILE *initialfile;
@@ -135,6 +136,8 @@ int main(){
   }
   fclose(initialfile);
   
+  printf("Initial values written to file initila.dat");
+
   /*** Update solution by looping over time steps ***/
   /* LOOP 5 */
   for (int m=0; m<nsteps; m++){
