@@ -23,7 +23,7 @@ set size square
 # Set title
 set title 'Vertical average distribution'
 
-set style line 21 lc rgb '#7b42f5' lt 2
+set style linetype 21 lc rgb '#7b42f5' 
 
 set key noautotitle
 
