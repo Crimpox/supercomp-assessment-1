@@ -41,10 +41,10 @@ int main(){
   const float ymax=30.0; // Maximum y value         **        
   
   /* Parameters for the Gaussian initial conditions */
-  const float x0=3.0;                    // Centre(x)       ** 
-  const float y0=15.0;                    // Centre(y)       *** TASK 2
-  const float sigmax=1.0;               // Width(x)          *        
-  const float sigmay=5.0;               // Width(y)         **        
+  const float x0=3.0;                    // Centre(x)          ** 
+  const float y0=15.0;                    // Centre(y)          *** TASK 2
+  const float sigmax=1.0;               // Width(x)             *        
+  const float sigmay=5.0;               // Width(y)            **        
   const float sigmax2 = sigmax * sigmax; // Width(x) squared
   const float sigmay2 = sigmay * sigmay; // Width(y) squared
 
@@ -58,18 +58,17 @@ int main(){
   const float CFL=0.9;   // CFL number 
   const int nsteps=800; // Number of time steps   [TASK 2]
 
+  /* Vertical shear*/
+  const float fricvel = 0.2;  // u*: Friction velcotiy (m/s)        ** 
+  const float roughlen = 1.0; // z0: Roughness length (m)            *** TASK 3
+  const float k = 0.41;       // k: Von Karman’s constant           ** 
+
   /* Velocity */
   const float vely=0.0;     /*[Task 2]*/        // Velocity in y direction
   //const float velx=1.0;   /*[TASK 2]*/
 
   /**[TASK 3] In order to calculate the time step we need the maximum value of velx within the domain**/
   float velx = (fricvel/k)*log(ymax/roughlen);  // Velocity in x direction  
-
-  /* Vertical shear*/
-  const float fricvel = 0.2;  // u*: Friction velcotiy (m/s)        ** 
-  const float roughlen = 1.0; // z0: Roughness length (m)            *** TASK 3
-  const float k = 0.41;       // k: Von Karman’s constant           ** 
-
 
   /* Arrays to store variables. These have NX+2 elements
      to allow boundary values to be stored at both ends */
